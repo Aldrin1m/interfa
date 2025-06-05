@@ -1,0 +1,160 @@
+/* Contenedor principal */
+.labyrinth-container {
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+  background: linear-gradient(135deg, #232526, #414345);
+  color: #f0f0f0;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Controles */
+.labyrinth-controls,
+.labyrinth-stats {
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+.labyrinth-controls select {
+  padding: 5px 10px;
+  border-radius: 6px;
+  border: none;
+  background: #5c6bc0;
+  color: white;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.labyrinth-controls select:hover {
+  background: #7986cb;
+}
+
+/* Laberinto */
+.labyrinth-grid {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  transition: transform 0.3s ease;
+}
+
+/* Fila del laberinto */
+.labyrinth-row {
+  display: flex;
+}
+
+/* Celdas */
+.cell-wall {
+  background-color: #1c1c1c;
+  border: 1px solid #333;
+  transition: background-color 0.3s;
+}
+
+.cell-path {
+  background-color: #eeeeee;
+  border: 1px solid #cccccc;
+  transition: background-color 0.3s;
+}
+
+.cell-exit {
+  background: radial-gradient(circle, #4caf50 0%, #2e7d32 100%);
+  border: 2px solid #66bb6a;
+  animation: pulse 1s infinite ease-in-out;
+}
+
+/* Jugador */
+.player-cell {
+  background-color: #ffd700 !important;
+  box-shadow: 0 0 10px #ffd700;
+  transition: transform 0.2s ease;
+}
+
+.player-icon {
+  font-size: 24px;
+  animation: bounce 0.5s infinite alternate;
+}
+
+/* Banner de victoria */
+.win-banner,
+.lose-banner {
+  margin-top: 20px;
+  font-size: 24px;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: bold;
+  animation: fadeIn 1s ease-out;
+}
+
+.win-banner {
+  background-color: #4caf50;
+  color: white;
+}
+
+.lose-banner {
+  background-color: #e53935;
+  color: white;
+}
+
+/* Animaciones */
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 5px #66bb6a;
+  }
+  50% {
+    box-shadow: 0 0 15px #66bb6a;
+  }
+  100% {
+    box-shadow: 0 0 5px #66bb6a;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.mobile-controls {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.arrow-row {
+  display: flex;
+  gap: 10px;
+}
+
+.mobile-controls button {
+  font-size: 24px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  background-color: #444;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  cursor: pointer;
+}
+
+.mobile-controls button:active {
+  background-color: #666;
+  transform: scale(0.95);
+}

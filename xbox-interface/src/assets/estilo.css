@@ -1,0 +1,339 @@
+/* Fondo dinámico estilo wormhole con animación de movimiento */
+@keyframes wormhole-move {
+  0% { background-position: center center; }
+  50% { background-position: center 40%; }
+  100% { background-position: center center; }
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('https://cdna.artstation.com/p/assets/images/images/023/856/226/large/bruce-liu-wormhole.jpg?1580559436');
+  background-size: cover;
+  background-position: center center;
+  z-index: -2;
+  filter: brightness(0.5) saturate(1.2);
+  animation: wormhole-move 20s ease-in-out infinite;
+  transition: transform 0.2s ease;
+}
+
+/* Capa translúcida encima del fondo */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: -1;
+}
+
+/* Encabezado superior */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Ocultar elementos no usados */
+.user-info,
+.avatar img,
+.username,
+.badge,
+.points {
+  display: none;
+}
+
+/* Controles del lado derecho */
+.right-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 14px;
+}
+
+/* Contenido principal */
+.main-content {
+  padding: 30px;
+  color: white;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Primera fila de juegos con scroll horizontal */
+.games-row {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding-bottom: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 255, 0, 0.4) transparent;
+  scroll-behavior: smooth;
+}
+
+.games-row::-webkit-scrollbar {
+  height: 8px;
+}
+
+.games-row::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 255, 0, 0.4);
+  border-radius: 4px;
+}
+
+/* Tarjetas de juego */
+.game-tile {
+  min-width: 300px;
+  height: 180px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.4s ease;
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.1);
+}
+
+.game-tile:hover,
+.game-tile.active {
+  transform: scale(1.08);
+  box-shadow: 0 0 25px 5px rgba(0, 255, 0, 0.7);
+}
+
+.game-title {
+  font-size: 20px;
+  font-weight: bold;
+  text-shadow: 0 0 5px black;
+}
+
+.game-description {
+  font-size: 14px;
+  opacity: 0;
+  text-shadow: 0 0 3px black;
+  transition: opacity 0.5s ease-in-out;
+  margin-top: 4px;
+}
+
+.game-tile:hover .game-description,
+.tile:hover .game-description {
+  opacity: 1;
+}
+
+/* Segunda fila de tiles (más pequeños) */
+.second-row {
+  display: flex;
+  overflow-x: auto;
+  gap: 25px;
+  padding-bottom: 20px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 255, 0, 0.4) transparent;
+  scroll-behavior: smooth;
+}
+
+.second-row::-webkit-scrollbar {
+  height: 6px;
+}
+
+.second-row::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 255, 0, 0.4);
+  border-radius: 3px;
+}
+
+/* Tiles más pequeños */
+.tile {
+  min-width: 200px;
+  height: 100px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  backdrop-filter: blur(5px);
+  transition: background 0.3s ease, transform 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 0 8px rgba(0, 255, 0, 0.1);
+}
+
+.tile:hover {
+  background: rgba(0, 255, 0, 0.18);
+  transform: scale(1.08);
+  box-shadow: 0 0 18px 4px rgba(0, 255, 0, 0.6);
+}
+
+.tile.active {
+  transform: scale(1.08);
+  box-shadow: 0 0 30px 7px rgba(0, 255, 0, 0.9);
+  border: 2px solid limegreen;
+  background: rgba(0, 255, 0, 0.18);
+}
+
+.tile-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 8px;
+  object-fit: contain;
+}
+
+.tile-title {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+/* Navegación inferior fija */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: space-around;
+  padding: 15px 0;
+  color: white;
+  font-weight: bold;
+  font-family: 'Segoe UI', sans-serif;
+  backdrop-filter: blur(6px);
+  z-index: 10;
+}
+
+.nav-item {
+  cursor: pointer;
+  transition: color 0.3s ease;
+  user-select: none;
+}
+
+.nav-item:hover {
+  color: limegreen;
+  text-shadow: 0 0 5px limegreen;
+}
+
+/* Botón flotante estilo Xbox ('Y') con animación de pulso */
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 255, 0, 1);
+    transform: scale(1.12);
+  }
+  100% {
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.6);
+  }
+}
+
+.search-btn {
+  position: fixed;
+  bottom: 80px;
+  right: 30px;
+  background: limegreen;
+  color: black;
+  width: 45px;
+  height: 45px;
+  font-weight: bold;
+  font-size: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 10;
+  animation: pulse-glow 3s infinite ease-in-out;
+}
+
+.search-btn:hover {
+  transform: scale(1.15);
+  animation-play-state: paused;
+}
+
+/* Botón de regreso */
+.back-button {
+  margin-bottom: 10px;
+  padding: 6px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+  border: 1px solid #444;
+  background-color: #eee;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.back-button:hover {
+  background-color: #ddd;
+}
+
+/* Ajustes para pantallas pequeñas (móviles) */
+@media (max-width: 600px) {
+  
+  .header {
+    padding: 15px 20px;
+    font-size: 14px;
+  }
+
+  .main-content {
+    padding: 15px 20px;
+    font-size: 14px;
+  }
+
+  .games-row, .second-row {
+    gap: 15px;
+    padding-bottom: 15px;
+  }
+
+  .game-tile {
+    min-width: 220px;
+    height: 140px;
+    padding: 15px;
+    font-size: 14px;
+  }
+
+  .game-title {
+    font-size: 16px;
+  }
+
+  .game-description {
+    font-size: 12px;
+  }
+
+  .tile {
+    min-width: 140px;
+    height: 80px;
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .tile-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .tile-title {
+    font-size: 14px;
+  }
+
+  .bottom-nav {
+    padding: 10px 0;
+    font-size: 14px;
+  }
+
+  .search-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    bottom: 70px;
+    right: 20px;
+  }
+}
